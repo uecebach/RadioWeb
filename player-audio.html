@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teste de Player</title>
+<style>
+	#playlist{list-style:none;}
+	#playlist li a{color:black;text-decoration:none;}
+	#playlist .current-song a{color:blue;}
+</style>
+</head>
+<body>
+
+<p>Player Rádio Online</p>
+
+<audio src="" controls id="audioPlayer">
+    Desculpe, seu navegador não suporta Html5! 
+</audio>
+<ul id="playlist">
+	<li class="current-song"><a href="https://sites.google.com/site/musicasweallneedrock/arqui/when-the-children-cry.mp3">White Lion - When The Children Cry</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/simple-man.mp3">Lynyrd Skynyrd - Simple Man</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Whitesnake%20-%20Looking%20For%20Love.mp3">Whitesnake - Looking For Love</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Stone%20Fury%20-%20Life%20Is%20Too%20Lonely.mp3">Stone Fury - Life Is Too Lonely</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Kiss%20-%20Forever.mp3">Kiss - Forever</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Def%20Leppard%20-%20Hysteria.mp3">Def Leppard - Hysteria</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/EUROPE%20-%20Open%20Your%20Heart.mp3">Europe - Open Your Heart</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Cinderella%20-%20Nobodys%20Fool%20%281986%20LP%20Version%29%20HQ.mp3">Cinderella - Nobody's Fool</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Helloween%20-%20Forever%20and%20one%20%28Neverland%29.mp3">Helloween - Forever And One</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Scorpions%20-%20Wind%20Of%20Change%20-%20HQ%20Audio.mp3">Scorpions - Wind Of Change</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Guns%20N%20Roses%20-%20Dont%20Cry%20%28Original%29.mp3">Guns N' Roses - Don't Cry</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Judas%20Priest%20-%20Angel%20%28Official%20Audio%29.mp3">Judas Priest - Angel</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Iron%20Maiden%20-%20Wasting%20Love.mp3">Iron Maiden - Wasting Love</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Metallica%20-%20Fade%20to%20Black.mp3">Metallica - Fade to Black</a></li>
+	<li><a href="https://sites.google.com/site/musicasweallneedrock/arqui/Motorhead%20-%20God%20Was%20Never%20on%20Your%20Side.mp3">Motorhead - God was never on your side</a></li>
+</ul>
+
+<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+<script>
+	audioPlayer();
+	function audioPlayer(){
+		var currentSong = 0;
+		$("#audioPlayer")[0].src = $("#playlist li a")[0];
+		$("#audioPlayer")[0].play();
+		$("#playlist li a").click(function(e){
+			e.preventDefault();
+			$("#audioPlayer")[0].src = this;
+			$("#audioPlayer")[0].play();
+			$("#playlist li").removeClass("current-song");
+			currentSong = $(this).parent().index();
+			$(this).parent().addClass("current-song");
+		});
+		
+		$("#audioPlayer")[0].addEventListener("ended", function(){
+			currentSong++;
+			if(currentSong == $("#playlist li a").length)
+				currentSong = 0;
+			$("#playlist li").removeClass("current-song");
+			$("#playlist li:eq("+currentSong+")").addClass("current-song");
+			$("#audioPlayer")[0].src = $("#playlist li a")[currentSong].href;
+			$("#audioPlayer")[0].play();
+		});
+	}
+</script>
+</body>
+</html>
